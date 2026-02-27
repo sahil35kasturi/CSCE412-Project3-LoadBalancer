@@ -1,0 +1,21 @@
+PROJECT_NAME           = "CSCE 412 Project 3 - Load Balancer Simulation"
+PROJECT_NUMBER         =
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRS         = NO
+
+INPUT                  = src include
+FILE_PATTERNS          = *.cpp *.h
+RECURSIVE              = YES
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = YES
+
+QUIET                  = NO
+WARNINGS               = YES
