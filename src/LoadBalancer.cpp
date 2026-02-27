@@ -2,24 +2,34 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 LoadBalancer::LoadBalancer(int initialServers, int minTime, int maxTime)
-    : totalProcessed(0), totalDropped(0), totalGenerated(0),
-      scaleUpCount(0), scaleDownCount(0), cooldown(0),
-      minTaskTime(minTime), maxTaskTime(maxTime)
+    : totalProcessed(0),
+      totalDropped(0),
+      totalGenerated(0),
+      scaleUpCount(0),
+      scaleDownCount(0),
+      cooldown(0),
+      minTaskTime(minTime),
+      maxTaskTime(maxTime),
+      peakQueueSize(0),
+      peakServers(initialServers),
+      minServers(initialServers)
 {
-
     for (int i = 0; i < initialServers; i++)
     {
         servers.emplace_back(i);
     }
 
+    // Example blocked IP range
     blockedIPs.push_back("192.168.1.");
 }
 
 void LoadBalancer::generateInitialQueue()
 {
     int initialSize = servers.size() * 100;
+
     for (int i = 0; i < initialSize; i++)
     {
         addRequest();
@@ -30,9 +40,18 @@ void LoadBalancer::simulate(int cycles)
 {
     int startingQueueSize = requestQueue.size();
 
-    for (int i = 0; i < cycles; i++)
-    {
+    std::ofstream logFile("logs/loadbalancer_log.txt");
 
+    logFile << "LOAD BALANCER SIMULATION LOG\n";
+    logFile << "=========================================\n";
+    logFile << "Initial Server Count: " << servers.size() << "\n";
+    logFile << "Simulation Cycles: " << cycles << "\n";
+    logFile << "Initial Queue Size: " << startingQueueSize << "\n";
+    logFile << "Task Time Range: " << minTaskTime << " - " << maxTaskTime << "\n\n";
+
+    for (int cycle = 0; cycle < cycles; cycle++)
+    {
+        // Randomly generate new requests
         if (rand() % 3 == 0)
         {
             addRequest();
@@ -41,15 +60,55 @@ void LoadBalancer::simulate(int cycles)
         assignRequests();
         tickServers();
 
+        // Track peak queue
+        if (requestQueue.size() > peakQueueSize)
+            peakQueueSize = requestQueue.size();
+
+        // Track server extremes
+        if (servers.size() > peakServers)
+            peakServers = servers.size();
+
+        if (servers.size() < minServers)
+            minServers = servers.size();
+
         if (cooldown > 0)
         {
             cooldown--;
         }
         else
         {
-            checkScaling();
+            checkScaling(logFile);
+        }
+
+        // Periodic logging every 1000 cycles
+        if (cycle % 1000 == 0)
+        {
+            logFile << "[Cycle " << cycle << "] "
+                    << "Queue: " << requestQueue.size()
+                    << " | Servers: " << servers.size()
+                    << " | Active: " << countActiveServers()
+                    << "\n";
         }
     }
+
+    // Final summary written to file
+    logFile << "\n================ FINAL SUMMARY ================\n";
+    logFile << "Starting Queue Size: " << startingQueueSize << "\n";
+    logFile << "Ending Queue Size: " << requestQueue.size() << "\n";
+    logFile << "Total Requests Generated: " << totalGenerated << "\n";
+    logFile << "Total Requests Processed: " << totalProcessed << "\n";
+    logFile << "Total Requests Dropped: " << totalDropped << "\n";
+    logFile << "Scale Ups: " << scaleUpCount << "\n";
+    logFile << "Scale Downs: " << scaleDownCount << "\n";
+    logFile << "Final Server Count: " << servers.size() << "\n";
+    logFile << "Active Servers: " << countActiveServers() << "\n";
+    logFile << "Inactive Servers: " << servers.size() - countActiveServers() << "\n";
+    logFile << "Peak Queue Size: " << peakQueueSize << "\n";
+    logFile << "Peak Servers: " << peakServers << "\n";
+    logFile << "Minimum Servers: " << minServers << "\n";
+    logFile << "===============================================\n";
+
+    logFile.close();
 
     printSummary(startingQueueSize);
 }
@@ -113,13 +172,19 @@ void LoadBalancer::tickServers()
     }
 }
 
-void LoadBalancer::checkScaling()
+void LoadBalancer::checkScaling(std::ofstream &logFile)
 {
     int currentSize = requestQueue.size();
     int serverCount = servers.size();
 
     if (currentSize > 80 * serverCount)
     {
+        logFile << "[SCALE UP] Queue: "
+                << currentSize
+                << " Servers: "
+                << serverCount
+                << "\n";
+
         servers.emplace_back(serverCount);
         scaleUpCount++;
         cooldown = 50;
@@ -127,15 +192,32 @@ void LoadBalancer::checkScaling()
 
     else if (currentSize < 50 * serverCount && serverCount > 1)
     {
+        logFile << "[SCALE DOWN] Queue: "
+                << currentSize
+                << " Servers: "
+                << serverCount
+                << "\n";
+
         servers.pop_back();
         scaleDownCount++;
         cooldown = 50;
     }
 }
 
+int LoadBalancer::countActiveServers() const
+{
+    int count = 0;
+    for (const auto &server : servers)
+    {
+        if (server.isBusy())
+            count++;
+    }
+    return count;
+}
+
 void LoadBalancer::printSummary(int startingQueueSize)
 {
-    std::cout << "\n--- Load Balancer Summary ---\n";
+    std::cout << "\n========== FINAL SUMMARY ==========\n";
     std::cout << "Starting Queue Size: " << startingQueueSize << "\n";
     std::cout << "Ending Queue Size: " << requestQueue.size() << "\n";
     std::cout << "Task Time Range: " << minTaskTime << " - " << maxTaskTime << "\n";
@@ -144,5 +226,11 @@ void LoadBalancer::printSummary(int startingQueueSize)
     std::cout << "Total Requests Dropped: " << totalDropped << "\n";
     std::cout << "Scale Ups: " << scaleUpCount << "\n";
     std::cout << "Scale Downs: " << scaleDownCount << "\n";
-    std::cout << "Active Servers: " << servers.size() << "\n";
+    std::cout << "Final Server Count: " << servers.size() << "\n";
+    std::cout << "Active Servers: " << countActiveServers() << "\n";
+    std::cout << "Inactive Servers: " << servers.size() - countActiveServers() << "\n";
+    std::cout << "Peak Queue Size: " << peakQueueSize << "\n";
+    std::cout << "Peak Servers: " << peakServers << "\n";
+    std::cout << "Minimum Servers: " << minServers << "\n";
+    std::cout << "====================================\n";
 }
