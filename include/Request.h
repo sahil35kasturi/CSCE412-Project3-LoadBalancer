@@ -11,7 +11,7 @@ struct Request
     std::string ipIn;
     std::string ipOut;
     int timeRequired;
-    char jobType; // 'P' or 'S'
+    char jobType;
 
     Request(std::string in, std::string out, int time, char type);
 };
