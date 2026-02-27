@@ -5,74 +5,90 @@ Simulation Cycles: 10000
 Initial Queue Size: 1000
 Task Time Range: 2 - 15
 
+[Activity] Cycle 0 | Generated: 1000 | Processed: 0 | Dropped: 0
 [SCALE UP] Queue: 990 Servers: 10
 [Cycle 0] Queue: 990 | Servers: 11 | Active: 10
-[SCALE UP] Queue: 947 Servers: 11
+[SCALE UP] Queue: 957 Servers: 11
 [SCALE DOWN] Queue: 599 Servers: 12
 [SCALE DOWN] Queue: 549 Servers: 11
 [SCALE DOWN] Queue: 498 Servers: 10
-[SCALE DOWN] Queue: 449 Servers: 9
+[Activity] Cycle 500 | Generated: 1165 | Processed: 663 | Dropped: 0
+[SCALE DOWN] Queue: 447 Servers: 9
 [SCALE DOWN] Queue: 399 Servers: 8
-[SCALE DOWN] Queue: 348 Servers: 7
-[SCALE DOWN] Queue: 298 Servers: 6
-[Cycle 1000] Queue: 256 | Servers: 5 | Active: 4
-[SCALE DOWN] Queue: 249 Servers: 5
-[SCALE DOWN] Queue: 198 Servers: 4
-[Cycle 2000] Queue: 163 | Servers: 3 | Active: 2
+[SCALE DOWN] Queue: 349 Servers: 7
+[SCALE DOWN] Queue: 299 Servers: 6
+[Activity] Cycle 1000 | Generated: 1317 | Processed: 1048 | Dropped: 0
+[Cycle 1000] Queue: 258 | Servers: 5 | Active: 4
+[SCALE DOWN] Queue: 248 Servers: 5
+[SCALE DOWN] Queue: 199 Servers: 4
+[Activity] Cycle 1500 | Generated: 1478 | Processed: 1264 | Dropped: 0
+[Activity] Cycle 2000 | Generated: 1636 | Processed: 1439 | Dropped: 0
+[Cycle 2000] Queue: 186 | Servers: 3 | Active: 2
+[Activity] Cycle 2500 | Generated: 1785 | Processed: 1608 | Dropped: 0
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
-[SCALE DOWN] Queue: 148 Servers: 3
-[SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 3000 | Generated: 1941 | Processed: 1768 | Dropped: 0
+[Cycle 3000] Queue: 160 | Servers: 3 | Active: 3
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
-[Cycle 3000] Queue: 151 | Servers: 3 | Active: 3
+[Activity] Cycle 3500 | Generated: 2099 | Processed: 1923 | Dropped: 0
+[Activity] Cycle 4000 | Generated: 2275 | Processed: 2107 | Dropped: 0
+[Cycle 4000] Queue: 155 | Servers: 3 | Active: 2
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 4500 | Generated: 2438 | Processed: 2270 | Dropped: 0
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 5000 | Generated: 2610 | Processed: 2430 | Dropped: 0
+[Cycle 5000] Queue: 165 | Servers: 3 | Active: 2
+[Activity] Cycle 5500 | Generated: 2783 | Processed: 2606 | Dropped: 0
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 6000 | Generated: 2951 | Processed: 2773 | Dropped: 0
+[Cycle 6000] Queue: 161 | Servers: 3 | Active: 3
 [SCALE DOWN] Queue: 149 Servers: 3
-[SCALE UP] Queue: 163 Servers: 2
-[SCALE DOWN] Queue: 149 Servers: 3
-[Cycle 4000] Queue: 158 | Servers: 2 | Active: 2
-[SCALE UP] Queue: 161 Servers: 2
-[SCALE DOWN] Queue: 149 Servers: 3
-[SCALE UP] Queue: 161 Servers: 2
-[Cycle 5000] Queue: 155 | Servers: 3 | Active: 1
-[SCALE DOWN] Queue: 149 Servers: 3
-[SCALE UP] Queue: 161 Servers: 2
-[Cycle 6000] Queue: 162 | Servers: 3 | Active: 3
-[SCALE DOWN] Queue: 149 Servers: 3
-[SCALE UP] Queue: 161 Servers: 2
-[SCALE DOWN] Queue: 149 Servers: 3
-[SCALE UP] Queue: 161 Servers: 2
-[Cycle 7000] Queue: 161 | Servers: 3 | Active: 3
-[Cycle 8000] Queue: 167 | Servers: 3 | Active: 2
-[SCALE DOWN] Queue: 149 Servers: 3
+[Activity] Cycle 6500 | Generated: 3125 | Processed: 2956 | Dropped: 0
 [SCALE UP] Queue: 161 Servers: 2
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
-[Cycle 9000] Queue: 157 | Servers: 3 | Active: 3
+[Activity] Cycle 7000 | Generated: 3301 | Processed: 3118 | Dropped: 0
+[Cycle 7000] Queue: 164 | Servers: 3 | Active: 3
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 7500 | Generated: 3457 | Processed: 3274 | Dropped: 0
+[SCALE DOWN] Queue: 149 Servers: 3
+[SCALE UP] Queue: 161 Servers: 2
+[SCALE DOWN] Queue: 149 Servers: 3
+[Activity] Cycle 8000 | Generated: 3611 | Processed: 3437 | Dropped: 0
+[Cycle 8000] Queue: 152 | Servers: 2 | Active: 2
+[SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 8500 | Generated: 3770 | Processed: 3585 | Dropped: 0
+[SCALE DOWN] Queue: 149 Servers: 3
+[SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 9000 | Generated: 3938 | Processed: 3758 | Dropped: 0
+[Cycle 9000] Queue: 156 | Servers: 3 | Active: 3
+[SCALE DOWN] Queue: 149 Servers: 3
+[SCALE UP] Queue: 162 Servers: 2
+[SCALE DOWN] Queue: 149 Servers: 3
+[SCALE UP] Queue: 161 Servers: 2
+[Activity] Cycle 9500 | Generated: 4101 | Processed: 3919 | Dropped: 0
 [SCALE DOWN] Queue: 149 Servers: 3
 [SCALE UP] Queue: 161 Servers: 2
 
 ================ FINAL SUMMARY ================
 Starting Queue Size: 1000
-Ending Queue Size: 160
-Total Requests Generated: 4295
-Total Requests Processed: 4108
+Ending Queue Size: 158
+Total Requests Generated: 4263
+Total Requests Processed: 4078
 Total Requests Dropped: 0
-Scale Ups: 19
-Scale Downs: 26
+Scale Ups: 17
+Scale Downs: 24
 Final Server Count: 3
 Active Servers: 3
 Inactive Servers: 0
-Peak Queue Size: 990
+Peak Queue Size: 991
 Peak Servers: 12
 Minimum Servers: 2
 ===============================================

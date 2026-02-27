@@ -51,7 +51,7 @@ void LoadBalancer::simulate(int cycles)
 
     for (int cycle = 0; cycle < cycles; cycle++)
     {
-        // Randomly generate new requests
+        // Random new request generation
         if (rand() % 3 == 0)
         {
             addRequest();
@@ -71,6 +71,17 @@ void LoadBalancer::simulate(int cycles)
         if (servers.size() < minServers)
             minServers = servers.size();
 
+        // Activity tracking every 500 cycles
+        if (cycle % 500 == 0)
+        {
+            logFile << "[Activity] Cycle " << cycle
+                    << " | Generated: " << totalGenerated
+                    << " | Processed: " << totalProcessed
+                    << " | Dropped: " << totalDropped
+                    << "\n";
+        }
+
+        // Scaling logic
         if (cooldown > 0)
         {
             cooldown--;
@@ -80,7 +91,7 @@ void LoadBalancer::simulate(int cycles)
             checkScaling(logFile);
         }
 
-        // Periodic logging every 1000 cycles
+        // Periodic state snapshot every 1000 cycles
         if (cycle % 1000 == 0)
         {
             logFile << "[Cycle " << cycle << "] "
@@ -189,7 +200,6 @@ void LoadBalancer::checkScaling(std::ofstream &logFile)
         scaleUpCount++;
         cooldown = 50;
     }
-
     else if (currentSize < 50 * serverCount && serverCount > 1)
     {
         logFile << "[SCALE DOWN] Queue: "
