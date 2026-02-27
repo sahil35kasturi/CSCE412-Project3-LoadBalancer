@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project 3 – Design Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header class="site-header">
+      <img src="SK-logo.png" alt="SK Logo" class="logo" />
+      <h1>Project 3 – Design Document</h1>
+  </header>
+
+  <main class="container">
+
+    <section>
+      <h2>System Flow Diagram</h2>
+
+      <div class="diagram-wrapper">
+        <img src="flow_diagram.png" alt="Load Balancer Flow Diagram" class="diagram" />
+      </div>
+    </section>
+
+    <section>
+      <h2>Design Explanation</h2>
+
+      <p>
+        This project simulates a load balancer that distributes incoming web requests
+        across multiple web servers. Requests arrive over time, are filtered through
+        a firewall, placed into a queue, and processed by available servers. The system
+        dynamically adjusts the number of servers to prevent overload or underutilization.
+      </p>
+
+      <p>
+        The simulation begins by reading a configuration file that defines scaling limits,
+        timing parameters, and blocked IP ranges. The user then provides the number of web
+        servers and the total simulation run time. Using this information, the load balancer
+        initializes the web servers, request queue, and firewall.
+      </p>
+
+      <p>
+        An initial request queue is generated with a size equal to the number of servers
+        multiplied by 100. The simulation then enters a loop that runs once per clock cycle
+        until the simulation time is reached.
+      </p>
+
+      <p>
+        During each clock cycle, new requests are randomly generated with random IP addresses,
+        job types, and service times. Each request is checked by the firewall. Requests from
+        blocked IP ranges are dropped and logged, while valid requests are added to the queue.
+      </p>
+
+      <p>
+        The load balancer assigns queued requests to idle web servers, which process the
+        requests by decrementing their remaining service time. The queue size is then
+        evaluated to determine whether scaling is required. If the queue size exceeds
+        80 times the number of servers, a new server is added. If the queue size falls
+        below 50 times the number of servers, an idle server is removed. A cooldown period
+        is enforced between scaling actions.
+      </p>
+
+      <p>
+        At the end of each clock cycle, the system logs the current state, including queue
+        size, server count, and any scaling or firewall events. Once the simulation completes,
+        a summary log is produced and the simulation ends.
+      </p>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>CSCE 412 – Project 3 | Sahil Kasturi</p>
+  </footer>
+
+</body>
+</html>
